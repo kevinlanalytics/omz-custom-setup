@@ -1,0 +1,20 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.8
+    hooks:
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix]
+      - id: ruff-format
+  - repo: local
+    hooks:
+      - id: styler
+        name: styler
+        entry: Rscript -e "styler::style_file(commandArgs(trailingOnly = TRUE))"
+        language: system
+        files: \.(R|r)$
+      - id: lintr
+        name: lintr
+        entry: Rscript -e "lintr::lint(commandArgs(trailingOnly = TRUE), error_on_lint = TRUE)"
+        language: system
+        files: \.(R|r)$
+
