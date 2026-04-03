@@ -6,7 +6,8 @@ This folder contains a backup of your Oh My Zsh custom configuration and helper 
 
 - `aliases.zsh`, `git.zsh`, `completion_config.zsh`, etc.
 - `plugins/` and `themes/` (including `zsh-autosuggestions` and `powerlevel10k`)
-- `qmk_firmware/`
+- `themes/powerlevel10k/` – git submodule pointing to your `powerlevel10k` theme
+- `qmk_firmware/` – git submodule pointing to your QMK firmware checkout
 - `zap_history.zsh`
 - `.gitignore` (to keep sensitive files like `Cercle.zsh` out of git)
 - `python_common_env.py` – defines your common Python environment using `uv`
@@ -135,4 +136,28 @@ This gives the project the same base set of R packages, managed by `renv`.
    ```
 
 After this, Python and R should have your usual tools ready, and future R projects can be bootstrapped with the same `source("~/.oh-my-zsh/custom/R_common_packages.R")` call.
+
+## 5. Git submodules for themes and QMK
+
+This repo uses git submodules for:
+
+- `themes/powerlevel10k/` – `powerlevel10k` zsh theme
+- `qmk_firmware/` – QMK firmware source
+
+When cloning this backup repo on a new machine, make sure to also initialize the submodules so those directories are populated before copying into `~/.oh-my-zsh/custom`:
+
+```bash
+git clone --recurse-submodules <your-remote-url> ~/Documents/omz-custom-setup
+cd ~/Documents/omz-custom-setup
+# If you forgot --recurse-submodules:
+git submodule update --init --recursive
+```
+
+Later, to pull in upstream updates to `powerlevel10k` or `qmk_firmware`, run:
+
+```bash
+cd ~/Documents/omz-custom-setup
+git submodule update --remote
+```
+
 
